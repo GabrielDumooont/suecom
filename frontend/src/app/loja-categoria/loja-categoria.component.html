@@ -1,0 +1,23 @@
+<main class="main-loja" [class.main-loja-escuro]="loja.modoEscuro_loja" [class.main-loja-claro]="!loja.modoEscuro_loja">
+    <div>
+        <h1 [style.border-bottom]="'solid 3px' + loja.cor_loja">{{categoria.nome}}</h1>
+        <div class="box-produtos">
+            @for (produto of produtos; track $index){
+                <a [href]="linkParaProduto + produto.nome.toLowerCase() + '/' + produto._id">
+                    <div class="box-produto">
+                        <div>
+                            @if (produto.image == undefined){
+                                <img src="../../assets/logoGrande_suecom_preto.png">
+                            } @else {
+                                <img [src]="produto.image.base64" [class.img-alta]="produto.image.largura > produto.image.altura">
+                            }
+                        </div>
+                        <h1>{{produto.nome}}</h1>
+                        <p>R$ {{produto.preco}}</p>
+                        <a [href]="linkParaProduto + produto.nome + '/' + produto._id" [style.background-color]="loja.cor_loja">VER PRODUTO</a>
+                    </div>
+                </a>
+            }
+        </div>
+    </div>
+</main>

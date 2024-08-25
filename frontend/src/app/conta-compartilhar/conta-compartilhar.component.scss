@@ -1,0 +1,16 @@
+@media (max-width: 1050px) {
+    .main-page{
+
+        .content-edicaoRegistro{
+            padding: 20px;
+
+            .box-inputs{
+                flex-direction: row;
+
+                div{
+                    width: 100%;
+                }
+            }
+        }
+    }
+}

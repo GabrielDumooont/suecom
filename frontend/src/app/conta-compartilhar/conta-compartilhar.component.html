@@ -1,0 +1,16 @@
+<div class="alertaPequeno" [class.alertaPequeno-active]="viewAlertaPequeno">
+    <h1>{{alertaPequeno}}</h1>
+</div>
+
+<main class="main-page">
+    <h1>Compartilhar</h1>
+    <div class="content-edicaoRegistro">
+        <div class="box-inputs">
+            <div>
+                <label>Link da sua loja</label>
+                <input type="text" disabled [(ngModel)]="linkLoja">
+            </div>
+            <button (click)="copiarLinkLoja()"><i class="fa-solid fa-copy" style="margin: 0px;"></i></button>
+        </div>
+    </div>
+</main>

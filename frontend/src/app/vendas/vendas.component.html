@@ -1,0 +1,130 @@
+<div class="main-alertaGrande" [class.alertaGrande-active]="viewAlertaGrande" (click)="changeAlertaGrande()">
+    <div class="box-alert">
+        <h1>{{alertaGrande.msg}}</h1>
+        <div>
+            @for (btn of alertaGrande.btns; track $index){
+                @if (btn.function != undefined){
+                    <button class="btn-amarelo" (click)="functionAlertaGrande(btn.function)">{{btn.text}}</button>
+                } @else {
+                    <button class="btn-preto">{{btn.text}}</button>
+                }
+            }
+        </div>
+    </div>
+</div>
+
+<div class="alertaPequeno" [class.alertaPequeno-active]="viewAlertaPequeno">
+    <h1>{{alertaPequeno}}</h1>
+</div>
+
+<div class="main-alertaLista" [class.alertaLista-active]="viewAlertaLista" (click)="onFecharAlertaLista()">
+    <div class="box-alert">
+        <div class="box-input" (click)="clickInput = true">
+            <input type="text" placeholder="Informe o nome do produto" [(ngModel)]="pesquisaAlerta" (keyup)="onBuscarProduto()">
+        </div>
+        <div class="box-list">
+            @for (produto of produtos_alerta; track $index){
+                @if ($index + 1 == produtos_alerta.length){
+                    <div style="border-radius: 0px 0px 10px 10px;" (click)="onSelectProduto(produto)">
+                        <h1>{{produto.nome}}</h1>
+                    </div>
+                } @else {
+                    <div (click)="onSelectProduto(produto)">
+                        <h1 (click)="onSelectProduto(produto)">{{produto.nome}}</h1>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>
+
+<main class="main-page">
+    <h1>Vendas</h1>
+    <div class="content-btns">
+        @if (!edicaoVenda){
+            <div>
+                <button class="btn-amarelo" (click)="onNovaVenda()"><i class="fa-solid fa-plus"></i>Nova venda</button>
+            </div>
+        } @else {
+            <div>
+                <button class="btn-amarelo" (click)="onPostVenda()">Salvar</button>
+                @if (venda._id != undefined){
+                    <button class="btn-preto" (click)="onAbrirAlertaDeletarVenda()">Excluir</button>
+                }
+                <button class="btn-preto" (click)="onCancelar()">Cancelar</button>
+            </div>
+        }
+    </div>
+    @if (!edicaoVenda){
+        <div class="content-listaRegistros">
+            @if (vendas.length > 0){
+                <div class="box-cabecalho">
+                    <p>Data</p>
+                    <p>Total</p>
+                </div>
+                <div class="box-list">
+                    @for (venda of vendas; track $index){
+                        <div (click)="onEditVenda(venda)">
+                            <p>{{venda.data}}</p>
+                            <p>R$ {{venda.total}}</p>
+                        </div>
+                    }
+                </div>
+            } @else {
+                <h1>Nenhuma venda</h1>
+            }
+        </div>
+    } @else {
+        <div class="content-edicaoRegistro">
+            <div class="box-inputs">
+                <div>
+                    <label>Cliente</label>
+                    <input type="text" [(ngModel)]="venda.nome_cliente">
+                </div>
+                <div>
+                    <label>Telefone do cliente</label>
+                    <input type="tel" mask="(00) 00000-0000" [(ngModel)]="venda.telefone_cliente">
+                </div>
+            </div>
+            <div class="box-inputs">
+                <div>
+                    <label>Data</label>
+                    <input type="datetime-local" [(ngModel)]="venda.data">
+                </div>
+            </div>
+        </div>
+        <div class="content-listaRegistros">
+            <div class="box-cabecalho">
+                <div class="box-inputs">
+                    <div class="box-input">
+                        <label>Produto</label>
+                        <input type="text" [(ngModel)]="produto.nome" (click)="viewAlertaLista = true" readonly style="cursor: pointer;">
+                    </div>
+                    <div class="box-input">
+                        <label>Quantidade</label>
+                        <input type="tel" [(ngModel)]="produto.quantidade">
+                    </div>
+                    <button (click)="onAddProduto()"><i class="fa-solid fa-plus"></i></button>
+                </div>
+            </div>
+            @if (produtos_venda.length > 0){
+                <div class="box-cabecalho">
+                    <p>Nome</p>
+                    <p>Quantidade</p>
+                    <p>Total</p>
+                </div>
+                <div class="box-list">
+                    @for (produto of produtos_venda; track $index){
+                        <div (click)="onAbrirAlertaRemoverProduto(); index_produtoSelecionado = $index">
+                            <p>{{produto.nome}}</p>
+                            <p>{{produto.quantidade}}</p>
+                            <p>R$ {{produto.total}}</p>
+                        </div>
+                    }
+                </div>
+            } @else {
+                <h1>Nenhum produto</h1>
+            }
+        </div>
+    }
+</main>

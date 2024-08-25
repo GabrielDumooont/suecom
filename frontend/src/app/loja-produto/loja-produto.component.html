@@ -1,0 +1,81 @@
+<main>
+    <div class="content-produto">
+        <!-- <h1>{{produto.nome}}</h1> -->
+        <div class="box-produto">
+            <div class="box-imgs">
+                <div class="list-imgs">
+                    @for (image of imagensProduto; track $index){
+                        <div (click)="imagemPrincipal = image">
+                            <img [src]="image.base64" [class.img-alta]="image.altura > image.largura">
+                        </div>
+                    }
+                </div>
+                <div class="box-img">
+                    <img [src]="imagemPrincipal.base64" [class.img-alta]="imagemPrincipal.altura > imagemPrincipal.largura">
+                </div>
+            </div>
+            <div class="box-infos">
+                <div>
+                    <h1>{{produto.nome}}</h1>
+                    <h2>R$ {{produto.preco}}</h2>
+                </div>
+                <button [style.background-color]="loja.cor_loja"><i class="fa-solid fa-cart-shopping"></i>ADICIONAR AO CARRINHO</button>
+            </div>
+        </div>
+        @if (produto.descricao != ""){
+            <div class="box-descricao">
+                <h1>Descrição</h1>
+                <p>{{produto.descricao}}</p>
+            </div>
+        }
+    </div>
+</main>
+
+<main class="main-loja" [class.main-loja-escuro]="loja.modoEscuro_loja" [class.main-loja-claro]="!loja.modoEscuro_loja">
+    @if (produtosSimilares.length > 0){
+        <div>
+            <h1 [style.border-bottom]="'solid 3px' + loja.cor_loja">Produtos Similares</h1>
+            <div class="box-produtos">
+                @for (produto of produtosSimilares; track $index){
+                    <a [href]="linkParaProduto + produto.nome.toLowerCase() + '/' + produto._id">
+                        <div class="box-produto">
+                            <div>
+                                @if (produto.image == undefined){
+                                    <img src="../../assets/logoGrande_suecom_preto.png">
+                                } @else {
+                                    <img [src]="produto.image.base64" [class.img-alta]="produto.image.largura > produto.image.altura">
+                                }
+                            </div>
+                            <h1>{{produto.nome}}</h1>
+                            <p>R$ {{produto.preco}}</p>
+                            <a [href]="linkParaProduto + produto.nome + '/' + produto._id" [style.background-color]="loja.cor_loja">VER PRODUTO</a>
+                        </div>
+                    </a>
+                }
+            </div>
+        </div>
+    }
+    @if (produtosOutros.length > 0){
+        <div>
+            <h1 [style.border-bottom]="'solid 3px' + loja.cor_loja">Outros Produtos</h1>
+            <div class="box-produtos">
+                @for (produto of produtosOutros; track $index){
+                    <a [href]="linkParaProduto + produto.nome.toLowerCase() + '/' + produto._id">
+                        <div class="box-produto">
+                            <div>
+                                @if (produto.image == undefined){
+                                    <img src="../../assets/logoGrande_suecom_preto.png">
+                                } @else {
+                                    <img [src]="produto.image.base64" [class.img-alta]="produto.image.largura > produto.image.altura">
+                                }
+                            </div>
+                            <h1>{{produto.nome}}</h1>
+                            <p>R$ {{produto.preco}}</p>
+                            <a [href]="linkParaProduto + produto.nome + '/' + produto._id" [style.background-color]="loja.cor_loja">VER PRODUTO</a>
+                        </div>
+                    </a>
+                }
+            </div>
+        </div>
+    } 
+</main>

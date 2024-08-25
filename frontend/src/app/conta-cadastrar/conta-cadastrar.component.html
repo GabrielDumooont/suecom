@@ -1,0 +1,29 @@
+<div class="alertaPequeno" [class.alertaPequeno-active]="viewAlertaPequeno">
+    <h1>{{alertaPequeno}}</h1>
+</div>
+
+<main>
+    <div>
+        <div class="box-logo">
+            <img src="../../assets/logoGrande_suecom_branco.png">
+        </div>
+        <div class="box-input">
+            <label>Nome da loja</label>
+            <input id="nome" type="text" [(ngModel)]="login.nome_loja">
+        </div>
+        <div class="box-input">
+            <label>Telefone (WhatsApp)</label>
+            <input id="telefone" type="tel" [(ngModel)]="login.telefone" prefix="+55 " mask="(00) 00000-0000">
+        </div>
+        <div class="box-input">
+            <label>E-mail</label>
+            <input id="email" type="text" [(ngModel)]="login.email">
+        </div>
+        <div class="box-input">
+            <label>Senha</label>
+            <input id="senha" type="password" [(ngModel)]="login.senha"> 
+        </div>
+        <button (click)="onCadastrar()">Cadastrar</button>
+        <a [routerLink]="['/']">Já possui conta? Entrar!</a>
+    </div>
+</main>

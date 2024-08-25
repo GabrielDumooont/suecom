@@ -1,0 +1,108 @@
+<div class="main-alertaGrande" [class.alertaGrande-active]="viewAlertaGrande" (click)="changeAlertaGrande()">
+    <div class="box-alert">
+        <h1>{{alertaGrande.msg}}</h1>
+        <div>
+            @for (btn of alertaGrande.btns; track $index){
+                @if (btn.function != undefined){
+                    <button class="btn-amarelo" (click)="functionAlertaGrande(btn.function)">{{btn.text}}</button>
+                } @else {
+                    <button class="btn-preto">{{btn.text}}</button>
+                }
+            }
+        </div>
+    </div>
+</div>
+
+<div class="alertaPequeno" [class.alertaPequeno-active]="viewAlertaPequeno">
+    <h1>{{alertaPequeno}}</h1>
+</div>
+
+<main class="main-page">
+    <h1>Configurações</h1>
+    <div class="content-btns">
+        <div>
+            <button class="btn-amarelo" (click)="onPutConta()">Salvar</button>
+            <button class="btn-preto" (click)="onAbrirAlertaDelete()">Excluir</button>
+            <button class="btn-preto" (click)="onAbrirAlertaSair()">Sair</button>
+        </div> 
+    </div>
+    <div class="content-edicaoRegistro">
+        <!-- <input id="inputImg" type="file" accept=".jpg, .jpeg, .png" style="display: none;" (change)="transformarImgB64($event)">
+        <label for="inputImg">
+            @if (conta.image == ''){
+                <div class="box-img">
+                    <i class="fa-solid fa-camera"></i>
+                </div>
+            } @else {
+                <div class="box-img" [style.background-color]="conta.cor_loja">
+                    <img [src]="conta.image" [class.img-larga]="larguraImg > alturaImg">
+                </div>
+            }
+        </label> -->
+        <div class="box-imgs">
+            @if (conta.image != ""){
+                <div class="box-img">
+                    <span (click)="conta.image = ''"><i class="fa-solid fa-xmark"></i></span>
+                    <label for="inputImg">
+                        <div class="box-imgBranco">
+                            <img [src]="conta.image" [class.img-larga]="larguraImg > alturaImg">
+                        </div>
+                    </label>
+                </div>
+            } @else {
+                <div class="box-img">
+                    <input id="inputImg" type="file" accept=".jpg, .jpeg, .png" style="display: none;" [(ngModel)]="imgInput" (change)="transformarImgB64($event)">
+                    <label for="inputImg">
+                        <div>
+                            <i class="fa-solid fa-camera"></i>
+                        </div>
+                    </label>
+                </div>
+            }
+        </div>
+        <!-- <button (click)="conta.image = ''">Remover imagem</button> -->
+        <div class="box-inputs">
+            <div>
+                <label>Nome da loja</label>
+                <input type="text" [(ngModel)]="conta.nome_loja">
+            </div>
+            <div>
+                <label>Cor tema</label>
+                <input type="color" [style.background-color]="conta.cor_loja" [(ngModel)]="conta.cor_loja">
+            </div>
+            <div>
+                <label>Modo escuro</label>
+                <label class="switch">
+                    <input type="checkbox" [(ngModel)]="conta.modoEscuro_loja">
+                    <span class="slider"></span>
+                </label>
+                <!-- <select [(ngModel)]="conta.modoEscuro_loja">
+                    <option value="{{false}}">Desativado</option>
+                    <option value="{{true}}">Ativado</option>
+                </select> -->
+            </div>
+        </div>
+        <!-- <div class="box-inputs">
+            <div>
+                <label>Descricão</label>
+                <textarea rows="5" [(ngModel)]="conta.descricao_loja"></textarea>
+            </div>
+        </div> -->
+        <div class="box-inputs">
+            <div>
+                <label>Telefone (WhatsApp)</label>
+                <input type="text" [(ngModel)]="conta.telefone" prefix="+55 " mask="(00) 00000-0000">
+            </div>
+        </div>
+        <div class="box-inputs">
+            <div>
+                <label>E-mail</label>
+                <input type="text" [(ngModel)]="conta.email" disabled>
+            </div>
+            <div>
+                <label>Senha</label>
+                <input type="text" [(ngModel)]="conta.senha">
+            </div>
+        </div>
+    </div>
+</main>

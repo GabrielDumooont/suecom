@@ -1,0 +1,30 @@
+<div class="main-nav" [class.main-nav-escuro]="loja.modoEscuro_loja" [class.main-nav-claro]="!loja.modoEscuro_loja" [class.main-nav-active]="menuAberto" (click)="onChangeMenu()">
+    <nav [style.background-color]="loja.cor_loja" (click)="clickNav = true">
+        @if (loja.image == ""){
+            <h1 (click)="onSelectCategoria('')">{{loja.nome_loja}}</h1>
+        } @else {
+            <div>
+                <img [src]="loja.image">
+            </div>
+        }
+        <i class="fa-solid fa-angle-left" (click)="onChangeMenu()"></i>
+        <a [routerLink]="['/loja/' + loja.path_loja]" routerLinkActive="select" (click)="onChangeMenu()">Home</a>
+        @for (categoria of categorias; track $index){
+            <!-- <a [routerLink]="['/loja/' + loja.path_loja + '/categoria/' + categoria.nome.toLowerCase() + '/' + categoria._id]" routerLinkActive="select" (click)="onChangeMenu()">{{categoria.nome}}</a> -->
+            <a (click)="onSelectCategoria(categoria)">{{categoria.nome}}</a>
+        }
+    </nav>
+</div>
+
+<header [class.header-escuro]="loja.modoEscuro_loja" [class.header-claro]="!loja.modoEscuro_loja" [style.background-color]="loja.cor_loja">
+    <i class="fa-solid fa-bars" (click)="onChangeMenu()"></i>
+    <div>
+        <input type="text" placeholder="Busque aqui seu produto" [(ngModel)]="pesquisa" (keyup.enter)="onBuscarProduto()">
+        <button (click)="onBuscarProduto()"><i class="fa-solid fa-magnifying-glass"></i></button>
+    </div>
+    <h1 (click)="onSelectCategoria('')">{{loja.nome_loja}}</h1>
+</header>
+
+<main [class.main-escuro]="loja.modoEscuro_loja" [class.main-claro]="!loja.modoEscuro_loja">
+    <router-outlet></router-outlet>
+</main>

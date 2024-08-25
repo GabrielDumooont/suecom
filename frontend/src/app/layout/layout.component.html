@@ -1,0 +1,32 @@
+<header>
+    <i class="fa-solid fa-bars"
+        (click)="changeMenu()"
+    ></i>
+</header>
+
+<nav [class.menuAberto]="menuAberto">
+    <!-- <i class="fa-solid fa-xmark" (click)="changeMenu()"></i> -->
+    <div class="box-logo">
+        <img src="../../assets/logoGrande_suecom_branco.png">
+    </div> 
+    <i class="fa-solid fa-angle-left" (click)="changeMenu()"></i>
+    <div>
+        <p>Registros</p>
+        <a [routerLink]="['/layout/dashboard']" routerLinkActive="select" (click)="changeMenu()">Dashboard</a>
+    </div>
+    <div>
+        <p>Cadastros</p>
+        <a [routerLink]="['/layout/vendas']" routerLinkActive="select" (click)="changeMenu()">Vendas</a>
+        <a [routerLink]="['/layout/produtos']" routerLinkActive="select" (click)="changeMenu()">Produtos</a>
+        <a [routerLink]="['/layout/categorias']" routerLinkActive="select" (click)="changeMenu()">Categorias</a>
+    </div>
+    <div>
+        <p>Conta</p>
+        <a [routerLink]="['/layout/conta-configuracoes']" routerLinkActive="select" (click)="changeMenu()">Configurações</a>
+        <a [routerLink]="['/layout/conta-compartilhar']" routerLinkActive="select" (click)="changeMenu()">Compartilhar</a>
+    </div>
+</nav>
+
+<main>
+    <router-outlet></router-outlet>
+</main>

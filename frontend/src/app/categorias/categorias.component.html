@@ -1,0 +1,64 @@
+<div class="main-alertaGrande" [class.alertaGrande-active]="viewAlertaGrande" (click)="changeAlertaGrande()">
+    <div class="box-alert">
+        <h1>{{alertaGrande.msg}}</h1>
+        <div>
+            @for (btn of alertaGrande.btns; track $index){
+                @if (btn.function != undefined){
+                    <button class="btn-amarelo" (click)="functionAlertaGrande(btn.function)">{{btn.text}}</button>
+                } @else {
+                    <button class="btn-preto">{{btn.text}}</button>
+                }
+            }
+        </div>
+    </div>
+</div>
+
+<div class="alertaPequeno" [class.alertaPequeno-active]="viewAlertaPequeno">
+    <h1>{{alertaPequeno}}</h1>
+</div>
+
+<main class="main-page">
+    <h1>Categorias</h1>
+    <div class="content-btns">
+        @if(!edicaoCategoria){ 
+            <div>
+                <button class="btn-amarelo" (click)="edicaoCategoria = true"><i class="fa-solid fa-plus"></i>Nova categoria</button>
+            </div>
+        } @else {
+            <div>
+                <button class="btn-amarelo" (click)="onPostCategoria()">Salvar</button>
+                @if (categoria._id != undefined) {
+                    <button class="btn-preto" (click)="onAbrirAlertaDelete()">Excluir</button>
+                }
+                <button class="btn-preto" (click)="onCancelar()">Cancelar</button>
+            </div>
+        }
+    </div>
+    @if (!edicaoCategoria) {
+        <div class="content-listaRegistros">
+            @if (categorias.length > 0){
+                <div class="box-cabecalho">
+                    <p>Nome</p>
+                </div>
+                <div class="box-list">
+                @for (categoria of categorias; track $index) {
+                    <div (click)="onEditCategoria(categoria)">
+                        <p>{{categoria.nome}}</p>
+                    </div>
+                }
+                </div>
+            } @else {
+                <h1>Nenhuma categoria</h1>
+            }
+        </div>
+    } @else {
+        <div class="content-edicaoRegistro">
+            <div class="box-inputs">
+                <div>
+                    <label>Nome</label>
+                    <input type="text" [(ngModel)]="categoria.nome" (keydown.enter)="onPostCategoria()">
+                </div>
+            </div>
+        </div>
+    }
+</main>

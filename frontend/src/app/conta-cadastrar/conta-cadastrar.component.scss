@@ -1,0 +1,115 @@
+$preto-primario:    #212529;
+$preto-secundario:  #343A40;
+$preto-terceiro:    #4e545a;
+$amarelo:           #FFB703;
+$amarelo-claro:     #ffc93f;
+
+main{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    > div{
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+        width: 30%;
+        padding: 50px;
+        border-radius: 10px;
+        background-color: #343A40;
+        
+        .box-logo{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 40px;
+
+            img{
+                width: 70%;
+            }
+
+            h1{
+                color: white;
+                font-size: 20pt;
+                font-weight: 700;
+            }
+        }
+
+        .box-input{
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        
+        
+            label{
+                font-size: 12pt;
+                font-weight: 700;
+                color: white;
+            }
+            
+            input{
+                border: none;
+                outline: none;
+            
+                padding: 10px;
+            
+                font-size: 12pt;
+                font-weight: 700;
+                color: black;
+            
+                background-color: white;
+                border-radius: 10px;
+                // border-bottom: solid 1px $preto-primario;
+            }
+        }
+        
+        button{
+            border: none;
+            outline: none;
+        
+            padding: 10px;
+        
+            color: black;
+            font-size: 12pt;
+            font-weight: 700;
+            
+            background-color: $amarelo;
+            border-radius: 10px;
+            
+            cursor: pointer;
+
+            transition: all 0.3s ease;
+        }
+
+        button:hover{
+            background-color: $amarelo-claro;
+        }
+        
+        a{
+            font-size: 10pt;
+            color: white;
+        }
+    }
+}
+
+@media (max-width: 1700px) { 
+    main > div {
+        width: 40%;
+    }
+}
+
+@media (max-width: 1100px) { 
+    main > div{
+        padding: 50px;
+        width: 50%;
+    }
+}
+
+@media (max-width: 750px) { 
+    main > div{
+        padding: 15px;
+        width: 100%;
+        background-color: transparent;
+    }
+}

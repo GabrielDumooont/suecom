@@ -1,0 +1,21 @@
+<div class="alertaPequeno" [class.alertaPequeno-active]="viewAlertaPequeno">
+    <h1>{{alertaPequeno}}</h1>
+</div>
+<main>
+    <div>
+        <div class="box-logo">
+            <img src="../../assets/logoGrande_suecom_branco.png">
+            <!-- <h1>Bem-vindo(a) de volta!</h1> -->
+        </div>
+        <div class="box-input">
+            <label>E-mail</label>
+            <input type="text" [(ngModel)]="login.email">
+        </div>
+        <div class="box-input">
+            <label>Senha</label>
+            <input type="password" [(ngModel)]="login.senha"> 
+        </div>
+        <button (click)="onLogar()">Entrar</button>
+        <a [routerLink]="['/conta-cadastrar']">Ainda não possui conta? Cadastrar conta!</a>
+    </div>
+</main>

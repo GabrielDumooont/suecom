@@ -1,0 +1,155 @@
+<div class="main-alertaGrande" [class.alertaGrande-active]="viewAlertaGrande" (click)="changeAlertaGrande()">
+    <div class="box-alert">
+        <h1>{{alertaGrande.msg}}</h1>
+        <div>
+            @for (btn of alertaGrande.btns; track $index){
+                @if (btn.function != undefined){
+                    <button class="btn-amarelo" (click)="functionAlertaGrande(btn.function)">{{btn.text}}</button>
+                } @else {
+                    <button class="btn-preto">{{btn.text}}</button>
+                }
+            }
+        </div>
+    </div>
+</div>
+
+<div class="alertaPequeno" [class.alertaPequeno-active]="viewAlertaPequeno">
+    <h1>{{alertaPequeno}}</h1>
+</div>
+
+<div class="main-alertaLista" [class.alertaLista-active]="viewAlertaLista" (click)="onFecharAlertaLista()">
+    <div class="box-alert" (click)="clickAlerta = true">
+        <div class="box-input">
+            <input type="text" placeholder="Informe o nome do produto" [(ngModel)]="pesquisaAlerta" (keyup)="onBuscarCategoria()">
+        </div>
+        <div class="box-list">
+            @for (categoria of categorias; track $index){
+                @if ($index + 1 == categorias.length){
+                    <div style="border-radius: 0px 0px 10px 10px;" (click)="onSelectCategoria(categoria)">
+                        <h1>{{categoria.nome}}</h1>
+                    </div>
+                } @else {
+                    <div (click)="onSelectCategoria(categoria)">
+                        <h1 (click)="onSelectCategoria(categoria)">{{categoria.nome}}</h1>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>
+
+<main class="main-page">
+    <h1>Produtos</h1>
+    <div class="content-btns">
+        @if (edicaoProduto == false){
+            <div>
+                <button class="btn-amarelo" (click)="onNovoProduto()"><i class="fa-solid fa-plus"></i>Novo produto</button>
+            </div>
+        } @else {
+            <div>
+                <button class="btn-amarelo" (click)="onPostProduto()">Salvar</button>
+                @if (produto._id != undefined){
+                    <button class="btn-preto" (click)="onAbrirAlertaDelete()">Excluir</button>
+                }
+                <button class="btn-preto" (click)="onCancelar()">Cancelar</button>
+            </div>
+        }
+    </div>
+    @if (edicaoProduto == false){
+        <div class="content-listaRegistros">
+            @if (produtos.length > 0){
+                <div class="box-cabecalho">
+                    <span></span>
+                    <p>Nome</p>
+                    <p>Categoria</p>
+                    <p>Preço</p>
+                </div>
+                @for (categoria of categorias; track $index){
+                    <div class="box-list">
+                        @for (produto of produtos; track $index){
+                            @if (produto.id_categoria._id == categoria._id){
+                                <div (click)="onEditProduto(produto)">
+                                    <span [class.produto-desativo]="!produto.ativo"></span>
+                                    <p>{{produto.nome}}</p>
+                                    <p>{{produto.id_categoria.nome}}</p>
+                                    <p>R$ {{produto.preco}}</p>
+                                </div>
+                            }
+                        }
+                    </div>
+                }
+            } @else {
+                <h1>Nenhum produto</h1>
+            }
+        </div>
+    } @else {
+        <div class="content-edicaoRegistro">
+            <div class="box-imgs">
+                <input id="inputImg" type="file" accept=".jpg, .jpeg, .png" [multiple]="true" style="display: none;" [(ngModel)]="imgInput" (change)="transformarImgB64($event)">
+                @for (img of images; track $index){
+                    <div class="box-img">
+                        <span (click)="onRemoveImg($index)"><i class="fa-solid fa-xmark"></i></span>
+                        <label for="inputImg" (click)="onSelectImage($index)">
+                            <div class="box-imgBranco">
+                                <img [src]="img.base64" [class.img-larga]="img.largura > img.altura">
+                            </div>
+                        </label>
+                    </div>
+                }
+                @if (images.length < 5){
+                    <div class="box-img">
+                        <label for="inputImg">
+                            <div>
+                                <i class="fa-solid fa-camera"></i>
+                            </div>
+                        </label>
+                    </div>
+                }
+            </div>
+            <!-- <button (click)="produto.image = ''">Remover imagem</button> -->
+            <div class="box-inputs">
+                <div>
+                    <label>Nome</label>
+                    <input type="text" [(ngModel)]="produto.nome">
+                </div>
+            </div>
+            <div class="box-inputs">
+                <div>
+                    <label>Descrição</label>
+                    <textarea type="text" rows="5" [(ngModel)]="produto.descricao"></textarea>
+                </div>
+            </div>
+            <div class="box-inputs">
+                <div>
+                    <!-- <label>Categoria</label>
+                    <select [(ngModel)]="produto.id_categoria">
+                        @for (categoria of categorias; track $index){
+                            <option [value]="categoria._id">{{categoria.nome}}</option>
+                        }
+                    </select> -->
+                    <label>Categoria</label>
+                    <input (click)="viewAlertaLista = true" type="text" [(ngModel)]="produto.id_categoria.nome" readonly style="cursor: pointer;">
+                </div>
+            </div>
+            <div class="box-inputs">
+                <div>
+                    <label>Preço</label>
+                    <input type="tel" [(ngModel)]="produto.preco">
+                </div>
+            </div>
+            <div class="box-inputs">
+                <div>
+                    <label>Ativo</label>
+                    <label class="switch">
+                        <input type="checkbox" [(ngModel)]="produto.ativo">
+                        <span class="slider"></span>
+                    </label>
+                    <!-- <select [(ngModel)]="produto.ativo">
+                        <option [value]="true">Sim</option>
+                        <option [value]="false">Não</option>
+                    </select> -->
+                </div>
+            </div>
+        </div>
+    }
+</main>

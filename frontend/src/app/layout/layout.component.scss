@@ -1,0 +1,133 @@
+$preto-primario:    #212529;
+$preto-secundario:  #343A40;
+$preto-terceiro:    #4e545a;
+$amarelo:           #FFB703;
+$amarelo-claro:     #ffc93f;
+
+header{
+    display: none;
+
+    position: fixed;
+    top: 0px;
+    z-index: 1;
+
+    padding: 20px;
+    width: 100%;
+
+    background-color: $preto-secundario;
+    border-radius: 0px 0px 10px 10px;
+
+    i{
+        color: white;
+        font-size: 15pt;
+        cursor: pointer;
+    }
+}
+
+nav{
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 1;
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    
+    height: 100vh;
+    width: 350px;
+    padding: 20px;
+
+    background-color: $preto-secundario;
+    border-radius: 0px 10px 10px 0px;
+
+    transition: all 0.5s ease;
+
+    .box-logo{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        margin-bottom: 20px;
+
+        img{
+            width: 70%;
+        }
+    }
+
+    i{
+        display: none;
+
+        margin-bottom: 30px;
+
+        color: white;
+        font-size: 15pt;
+        cursor: pointer;
+    }
+
+    div{
+        display: flex;
+        flex-direction: column;
+        // gap: 10px;
+
+        p{
+            width: fit-content;
+            // padding-bottom: 5px;
+            margin-bottom: 10px;
+
+            color: white;
+            font-size: 13pt;
+            font-weight: 700;
+            // border-bottom: solid 2px $amarelo;
+        }
+
+        a{
+            padding: 10px;
+
+            color: white;
+            font-size: 11pt;
+            font-weight: 500;
+            text-decoration: none;
+            border-radius: 10px;
+
+            cursor: pointer;
+        }
+
+        a:hover{
+            background-color: $preto-terceiro;
+        }
+
+        .select{
+            background-color: $preto-terceiro;
+        }
+    }
+}
+
+main{
+    padding-left: 350px;
+}
+
+@media (max-width: 900px) { 
+    header{
+        display: block;
+    }
+    
+    nav{
+        width: 100%;
+
+        transform: translateX(-100%);
+
+        i{
+            display: block;
+        }
+    }
+
+    .menuAberto{
+        transform: translateX(0px) !important;
+    }
+
+    main{
+        padding-top: 65px;
+        padding-left: 0px;
+    }
+}
